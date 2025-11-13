@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block page_heading %}Students{% endblock %}
+
+{% block content %}
+<div class="flex flex-col gap-6">
+
+  {% if students %}
+    <ul class="grid sm:grid-cols-2 gap-6">
+      {% for s in students %}
+      <li class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-lg font-semibold text-slate-800">{{ s.first_name }} {{ s.last_name }}</h2>
+        </div>
+
+        <div class="text-sm text-slate-600">
+          <p><span class="font-medium text-slate-700">Enrollment No:</span> {{ s.Reg_no }}</p>
+          <p><span class="font-medium text-slate-700">DOB:</span> {{ s.dob }}</p>
+          <p><span class="font-medium text-slate-700">Course Name:</span> {{ s.course }}</p>
+        </div>
+
+        <div class="mt-4 flex items-center gap-3">
+          <a href="{% url 'students:student_update' s.pk %}" class="px-3 py-1.5 text-sm rounded-md bg-indigo-600 text-white hover:bg-indigo-700">Edit</a>
+          <a href="{% url 'students:student_delete' s.pk %}" class="px-3 py-1.5 text-sm rounded-md bg-red-500 text-white hover:bg-red-600">Delete</a>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+
+  {% else %}
+    <p class="text-center py-10 text-slate-500 text-lg">No students available.</p>
+  {% endif %}
+
+</div>
+{% endblock %}
